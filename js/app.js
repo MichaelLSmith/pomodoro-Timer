@@ -2,22 +2,22 @@ var fillChange = document.getElementById('circle');
 
 // console.dir(fillChange);
 
-var styleLook = window.getComputedStyle(fillChange);
+// var styleLook = window.getComputedStyle(fillChange);
 
 // console.dir(styleLook);
 
 // fillChange.setAttribute('fill', 'blue');
 
-var animation = document.getElementById('circle')
+// var animation = document.getElementById('circle')
 
-    .animate([
-            { fill: 'blue' },
-            { fill: 'yellow' }
-        ], {
-            duration: 2000,
-            direction: 'alternate',
-            iterations: 3
-        });
+//     .animate([
+//             { fill: 'blue' },
+//             { fill: 'yellow' }
+//         ], {
+//             duration: 2000,
+//             direction: 'alternate',
+//             iterations: 3
+//         });
 
 // console.dir(animation);
 

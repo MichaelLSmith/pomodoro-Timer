@@ -9,10 +9,10 @@
 .container {
   max-width: 85%;
   background-color: gray;
-  height: 100%;
+  /*height: 500px;*/
   svg {
-    width: 50%;
-    height: 100%;
+    width: 20%;
+    height: 150px;
     margin: auto;
     display: block;
   }
@@ -22,4 +22,13 @@
   font-size: 2.3em;
   color: white;
   text-align: center;
+}
+
+#numContain {
+  background-color: yellow;
+}
+
+#svgContain {
+  height: 600px;
+  background-color: green;
 }
