@@ -1,3 +1,14 @@
-
+/* Animation setup */
+@keyframes example {
+  0% {
+    fill: #E5E5E5; }
+  100% {
+    fill: yellow; } }
+/*  #circle {
+    animation: example 4s alternate infinite;
+}*/
+.test {
+  color: blue;
+  font-size: 45px; }
 
 /*# sourceMappingURL=app.css.map */
