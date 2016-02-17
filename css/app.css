@@ -1,14 +1,22 @@
-/* Animation setup */
-@keyframes example {
-  0% {
-    fill: #E5E5E5; }
-  100% {
-    fill: yellow; } }
-/*  #circle {
-    animation: example 4s alternate infinite;
-}*/
-.test {
-  color: blue;
-  font-size: 45px; }
+.outer {
+  width: 100%; }
+
+.center {
+  margin: 0 auto 0 auto; }
+
+.container {
+  max-width: 85%;
+  background-color: gray;
+  height: 100%; }
+  .container svg {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    display: block; }
+
+.nums {
+  font-size: 2.3em;
+  color: white;
+  text-align: center; }
 
 /*# sourceMappingURL=app.css.map */

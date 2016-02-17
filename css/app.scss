@@ -1,23 +1,25 @@
-/* Animation setup */
-@keyframes example {
-    0% {fill: #E5E5E5;}
-    100% {fill: yellow;}
+.outer {
+  width: 100%;
 }
 
-/*  #circle {
-    animation: example 4s alternate infinite;
-}*/
-  
+.center {
+  margin: 0 auto 0 auto;
+}
 
-  .test {
-    color: blue;
-    font-size: 45px;
+.container {
+  max-width: 85%;
+  background-color: gray;
+  height: 100%;
+  svg {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    display: block;
   }
+}
 
-  #rect1 {
-
-  }
-
-  #circleBase {
-
-  }
+.nums {
+  font-size: 2.3em;
+  color: white;
+  text-align: center;
+}

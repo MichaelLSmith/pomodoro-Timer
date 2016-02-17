@@ -1,18 +1,12 @@
 var fillChange = document.getElementById('circle');
-var test = document.getElementById('test');
-console.dir(test);
+
 // console.dir(fillChange);
 
 var styleLook = window.getComputedStyle(fillChange);
 
-console.dir(styleLook);
+// console.dir(styleLook);
 
 // fillChange.setAttribute('fill', 'blue');
-
-
-var mask = document.getElementById('mask2');
-
-// console.dir(mask);
 
 var animation = document.getElementById('circle')
 
@@ -22,22 +16,32 @@ var animation = document.getElementById('circle')
         ], {
             duration: 2000,
             direction: 'alternate',
-            iterations: Infinity
+            iterations: 3
         });
 
-console.dir(animation);
+// console.dir(animation);
 
+var radElm = document.getElementById('fill')
+console.dir(radElm);
+
+console.dir(window.getComputedStyle(radElm));
+
+var baseCir = document.getElementById('circleBase');
+console.dir(baseCir);
 
 var radius = document.getElementById('fill')
     .animate([
         { r: 0 },
         { r: 25 },
-        { r: 37 }
+        { r: 36 }
         ],{
             duration: 2000,
             direction: 'alternate',
-            iterations: Infinity
+            iterations: 3
         });
+
+
+console.dir(radius);
 
 // animation.style.r = 35;
 
