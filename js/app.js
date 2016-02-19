@@ -32,12 +32,11 @@ var baseCir = document.getElementById('circleBase');
 var radius = document.getElementById('fill')
     .animate([
         { r: 0 },
-        { r: 25 },
-        { r: 36 }
+        { r: 95 }
         ],{
             duration: 2000,
             direction: 'alternate',
-            iterations: 3
+            iterations: Infinity
         });
 
 
