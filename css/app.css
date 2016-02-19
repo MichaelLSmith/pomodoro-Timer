@@ -1,5 +1,5 @@
 body {
-  background-color: #362F24; }
+  background-color: #2e2e2e; }
 
 .outer {
   width: 100%; }
@@ -17,8 +17,8 @@ body {
     display: block; }
 
 .nums {
-  color: #E4F1FE;
-  background-color: #55AEFF;
+  color: #EAE7E7;
+  background-color: #0794C3;
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 0 10px gray;
@@ -35,5 +35,13 @@ body {
 #svgContain {
   max-width: 75%;
   margin: auto; }
+
+#fill {
+  stroke: none;
+  fill: #6F0000; }
+
+#circleBase {
+  stroke: #4F6A00;
+  fill: #6F0000; }
 
 /*# sourceMappingURL=app.css.map */

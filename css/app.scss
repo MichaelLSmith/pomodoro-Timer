@@ -1,5 +1,12 @@
+$backround-color: #2e2e2e;
+$num-background: #0794C3;
+$timer-text: #EAE7E7;
+$circle-fill: #6F0000;
+$circle-stroke: #4F6A00;
+
+
 body {
-    background-color: #362F24;
+    background-color: $backround-color;
 }
 
 
@@ -23,8 +30,8 @@ body {
 }
 
 .nums {
-    color: #E4F1FE;
-    background-color: #55AEFF;
+    color: $timer-text;
+    background-color: $num-background;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 0 10px gray;
@@ -46,4 +53,14 @@ body {
 #svgContain {
     max-width: 75%;
     margin: auto;
+}
+
+#fill {
+    stroke: none;
+    fill: $circle-fill;
+}
+
+#circleBase {
+    stroke: $circle-stroke;
+    fill: $circle-fill;
 }
