@@ -1,34 +1,49 @@
+body {
+    background-color: #362F24;
+}
+
+
 .outer {
-  width: 100%;
+    width: 100%;
 }
 
 .center {
-  margin: 0 auto 0 auto;
+    margin: 0 auto 0 auto;
 }
 
 .container {
-  max-width: 85%;
-  background-color: gray;
-  /*height: 500px;*/
-  svg {
-    width: 20%;
-    height: 150px;
-    margin: auto;
-    display: block;
-  }
+    max-width: 600px;
+    min-width: 360px;
+    svg {
+        width: 250px;
+        height: 250px;
+        margin: auto;
+        display: block;
+    }
 }
 
 .nums {
-  font-size: 2.3em;
-  color: white;
-  text-align: center;
+    color: #E4F1FE;
+    background-color: #55AEFF;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px gray;
+    line-height: 2.5em;
+
+    span {
+        font-size: 2.5em;
+    }
+
 }
 
-#numContain {
-  background-color: yellow;
+.typeText {
+    font-size: 2.3em;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    /*background-color: black;*/
 }
 
 #svgContain {
-  height: 600px;
-  background-color: green;
+    max-width: 75%;
+    margin: auto;
 }

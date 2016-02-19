@@ -1,54 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Pomodoro Timer</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css">
     <link rel="stylesheet" type="text/css" href="css/grid.css">
     <link rel="stylesheet" type="text/css" href="css/app.css">
 </head>
 <body>
 
-<!-- <h1>fill color change</h1>
-<svg height="100" width="100">
-  <circle id="circle" cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="none"/>
-</svg> -->
-
-<br>
-<h1>Radius change on inner circle</h1>
-
-
 <div class="outer">
-    <main id="main">
-    <!-- class="container center"     -->
-        <div id="numContain" >
-        <!-- class="section container center" id="numContain" -->
-            <div >
-            <!-- class="nums col span_1_of_2" -->
-                <article>Work Time</article>
-                <span>+</span>
+    <main id="main" class="container center">
+        <section id="numContain" class="section group container center">        
+            <div class="nums col span_1_of_2" >
+                <div class="typeText">Work</div>
+                <i class="material-icons">add</i>
                 <span>5</span>
-                <span>-</span>
+                <i class="material-icons">remove</i>
             </div>
         
-            <div >
-            <!-- class="nums col span_1_of_2" -->
-                <article>Break Time</article>
-                <span>+</span>
+            <div class="nums col span_1_of_2" >
+                <div class="typeText">Break</div>
+                <i class="material-icons">add</i>
                 <span>5</span>
-                <span>-</span>
-        </div>
+                <i class="material-icons">remove</i>
+        </section>
         
-        <div id="svgContain">
-            SVG Position
-      <!--       <svg>
-                <circle id="fill" cx="50" cy="50" r="36" stroke="none" fill="blue"/>
-                <circle id="circleBase" cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="blue" fill-opacity="0"/>
-            </svg>  -->
-        </div>
+        <section class="section group" id="svgContain">
+            
+            <svg>
+                <circle id="fill" cx="125" cy="125" r="95" stroke="none" fill="#005EB2"/>
+                <circle id="circleBase" cx="125" cy="125" r="100" stroke="#615137" stroke-width="3" fill="#005EB2" fill-opacity="0"/>
+            </svg> 
+        </section>
     </main>
 </div>
 
-
-
-<script src="js/app.js"></script>
+<!-- <script src="js/app.js"></script> -->
+<script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
 </body>
 </html>

@@ -22,12 +22,12 @@ var fillChange = document.getElementById('circle');
 // console.dir(animation);
 
 var radElm = document.getElementById('fill')
-console.dir(radElm);
+// console.dir(radElm);
 
-console.dir(window.getComputedStyle(radElm));
+// console.dir(window.getComputedStyle(radElm));
 
 var baseCir = document.getElementById('circleBase');
-console.dir(baseCir);
+// console.dir(baseCir);
 
 var radius = document.getElementById('fill')
     .animate([
