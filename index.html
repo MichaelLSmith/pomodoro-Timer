@@ -13,18 +13,18 @@
 <div class="outer">
     <main id="main" class="container center">
         <section id="numContain" class="section group container center">        
-            <div class="nums col span_1_of_2" >
+            <div id="work" class="nums col span_1_of_2" >
                 <div class="typeText">Work</div>
-                <i class="material-icons">add</i>
-                <span>5</span>
-                <i class="material-icons">remove</i>
+                <i id="workAdd" class="material-icons">add</i>
+                <span id="work">5</span>
+                <i id="workSubtract" class="material-icons">remove</i>
             </div>
         
-            <div class="nums col span_1_of_2" >
+            <div id="break" class="nums col span_1_of_2" >
                 <div class="typeText">Break</div>
-                <i class="material-icons">add</i>
-                <span>5</span>
-                <i class="material-icons">remove</i>
+                <i id="breakAdd" class="material-icons">add</i>
+                <span id="break">5</span>
+                <i id="breakSubtrack" class="material-icons">remove</i>
         </section>
         
         <section class="section group" id="svgContain">
@@ -32,6 +32,9 @@
             <svg>
                 <circle id="fill" cx="125" cy="125" r="95" stroke="none" fill="#005EB2"/>
                 <circle id="circleBase" cx="125" cy="125" r="100" stroke="#615137" stroke-width="3" fill="#005EB2" fill-opacity="0"/>
+                <text id="count" x="175" y="175" 
+                    font-family="Verdana" 
+                    font-size="55">35</text>
             </svg> 
         </section>
     </main>

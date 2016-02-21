@@ -1,8 +1,12 @@
-$backround-color: #2e2e2e;
-$num-background: #0794C3;
-$timer-text: #EAE7E7;
-$circle-fill: #6F0000;
-$circle-stroke: #4F6A00;
+$backround-color: #B5B5B5;
+$num-background: #1159CC;
+$timer-text: #B5B5B5;
+$circle-fill: #8C9116;
+$circle-stroke: #901619;
+
+/*
+pomodoroClock git:(master) ✗ sass --watch .:.
+*/
 
 
 body {
@@ -63,4 +67,8 @@ body {
 #circleBase {
     stroke: $circle-stroke;
     fill: $circle-fill;
+}
+
+#count {
+    fill:white;
 }

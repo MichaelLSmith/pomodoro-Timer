@@ -1,5 +1,9 @@
+@charset "UTF-8";
+/*
+pomodoroClock git:(master) ✗ sass --watch .:.
+*/
 body {
-  background-color: #2e2e2e; }
+  background-color: #B5B5B5; }
 
 .outer {
   width: 100%; }
@@ -17,8 +21,8 @@ body {
     display: block; }
 
 .nums {
-  color: #EAE7E7;
-  background-color: #0794C3;
+  color: #B5B5B5;
+  background-color: #1159CC;
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 0 10px gray;
@@ -38,10 +42,13 @@ body {
 
 #fill {
   stroke: none;
-  fill: #6F0000; }
+  fill: #8C9116; }
 
 #circleBase {
-  stroke: #4F6A00;
-  fill: #6F0000; }
+  stroke: #901619;
+  fill: #8C9116; }
+
+#count {
+  fill: white; }
 
 /*# sourceMappingURL=app.css.map */
