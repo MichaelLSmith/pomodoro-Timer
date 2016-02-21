@@ -1,18 +1,18 @@
-var baseCir = document.getElementById('circleBase');
-// console.dir(baseCir);
+//timer Model
 
-//timer code:
-var count = 1.5;
-var countTxt = document.getElementById('count').textContent;
-// console.log(countTxt);
-var countNum = parseInt(countTxt);
-// console.log(countNum);
+//timer variables:
+var counterElm = document.getElementById('count');
+var count = parseInt(counterElm.textContent);
+console.log(count);
 
 //convert minutes to seconds
 var secs = count * 60;
+//convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
 var dur = secs * 1000;
 // console.log(dur);
 
+//timer controls
+//how to manually start counter??
 // var countDown = setInterval(counter, 1000);
 
 function counter(){
@@ -25,10 +25,8 @@ function counter(){
     // console.log(secs);
 }
 
-//buttons
+//button controller:
 var buttons = document.querySelectorAll('i');
-
-// console.log(buttons);
 
 for(var i = 0; i < 4; i++){
     buttons[i]
@@ -39,11 +37,11 @@ function adjustVal(evt){
     console.dir(evt);
     if(evt.target.id === 'workAdd'){
         console.log('if workAdd');
-        countNum += 1;
-        console.log(countNum);
+        count += 1;
+        console.log(count);
     }
     if(evt.target.id === 'workSubtract'){
-        countNum -= 1;
+        count -= 1;
     }
 
     if(evt.target.id === 'breakAdd'){
@@ -53,14 +51,12 @@ function adjustVal(evt){
     if(evt.target.id === 'breakSubtract'){
 
     }
-    countTxt = String(countNum);
-    var setNum = document.getElementById('count');
-    setNum.innerHTML = '37';
-    console.dir(document.getElementById('count'));
-
+    var counterStr = String(count);
+    console.log(counterStr);
+    counterElm.textContent = counterStr;
 }
 
-//circle animation:
+//Animation Controller:
 var radius = document.getElementById('fill')
     .animate([
         { r: 0 },
