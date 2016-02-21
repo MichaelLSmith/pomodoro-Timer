@@ -1,7 +1,10 @@
 //timer Model
 
 //timer variables:
+var countDown;
 var counterElm = document.getElementById('count');
+var workTime = document.querySelector('#workTime');
+console.log(workTime.textContent);
 var count = parseInt(counterElm.textContent);
 console.log(count);
 
@@ -9,29 +12,43 @@ console.log(count);
 var secs = count * 60;
 //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
 var dur = secs * 1000;
-// console.log(dur);
 
 //timer controls
-//how to manually start counter??
-// var countDown = setInterval(counter, 1000);
+var timerButtons = document.querySelectorAll('#work, #break');
+console.dir(timerButtons);
 
-function counter(){
-    secs --;
-    console.log('secs in counter()');
-    console.log(secs);
-    if(secs === 0){
-        clearInterval(countDown);
-    }
-    // console.log(secs);
+for (var t = 0; t < timerButtons.length; t++) {
+    timerButtons[t].addEventListener('click', timerCtrl, true);
 }
 
-//button controller:
+function timerCtrl(){
+    console.log('in timerCtrl()');
+    countDown = setInterval(counter, 1000);
+}
+
+//timer length controller:
 var buttons = document.querySelectorAll('i');
 
 for(var i = 0; i < 4; i++){
     buttons[i]
     .addEventListener('click', adjustVal, true);
 }
+
+function counter(){
+    secs --;
+    console.log('secs in counter()');
+    console.log(secs);
+    counterElm.textContent = String(secs);
+
+    if(secs === 0){
+        clearInterval(countDown);
+    }
+    // console.log(secs);
+}
+
+//how to lock out timer val buttons while running??
+//display mins/secs on circle
+
 
 function adjustVal(evt){
     console.dir(evt);
@@ -54,16 +71,20 @@ function adjustVal(evt){
     var counterStr = String(count);
     console.log(counterStr);
     counterElm.textContent = counterStr;
+    workTime.textContent = counterStr;
+    console.log(workTime.textContent);
 }
 
 //Animation Controller:
+//how to start animation when timer starts
+//right now it's running on page load
 var radius = document.getElementById('fill')
     .animate([
         { r: 0 },
         { r: 95 }
         ],{
-            duration: 2000,
+            duration: 1000,
             direction: 'alternate',
-            iterations: Infinity
+            iterations: 1
         });
 
