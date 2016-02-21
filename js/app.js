@@ -1,5 +1,9 @@
 //timer Model
 
+//animation player
+var player = {};
+
+
 //timer variables:
 var countDown;
 var counterElm = document.getElementById('count');
@@ -39,6 +43,9 @@ function counter(){
     console.log('secs in counter()');
     console.log(secs);
     counterElm.textContent = String(secs);
+    console.log(player);
+    animationCtrl();
+    player.play();
 
     if(secs === 0){
         clearInterval(countDown);
@@ -48,6 +55,10 @@ function counter(){
 
 //how to lock out timer val buttons while running??
 //display mins/secs on circle
+//when timer stops, reset it to equal work time. 
+//can't run under zero - right now if you press start, it will start counting into negatives.
+//make count equal work/break time, not the counter in the circle. The counter in the circle should just display the time, not control the timer.
+//if the start/stop functionality moves to circle, it will fix the problem of changing time starting the timer.
 
 
 function adjustVal(evt){
@@ -78,13 +89,19 @@ function adjustVal(evt){
 //Animation Controller:
 //how to start animation when timer starts
 //right now it's running on page load
-var radius = document.getElementById('fill')
-    .animate([
-        { r: 0 },
-        { r: 95 }
-        ],{
-            duration: 1000,
-            direction: 'alternate',
-            iterations: 1
-        });
+//player object is empty. Have to call animationCtrl from click on play button.
+
+function animationCtrl(){
+    player = document.getElementById('fill')
+        .animate([
+            { r: 0 },
+            { r: 95 }
+            ],{
+                duration: dur,
+                direction: 'alternate',
+                iterations: 1
+            });
+    //after animation finishes, make radius set to fill undercircle. Onfinish method?
+}
+
 
