@@ -1,6 +1,9 @@
-$backround-color: #B5B5B5;
-$num-background: #1159CC;
-$timer-text: #B5B5B5;
+$backround-color: #40557F;
+$num-background: #EAE7E7;
+$timer-text: black;
+$type-text: #EAE7E7;
+$type-background: #587F07;
+$break-background: #D4462B;
 $circle-fill: #8C9116;
 $circle-stroke: #901619;
 
@@ -38,21 +41,31 @@ body {
     background-color: $num-background;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 10px gray;
     line-height: 2.5em;
 
     span {
         font-size: 2.5em;
     }
-
 }
 
 .typeText {
     font-size: 2.3em;
     padding-top: 8px;
     padding-bottom: 8px;
-    /*background-color: black;*/
+    /*background-color: $type-background;*/
+    max-width: 50%;
+    border-radius: 5px;
+    margin: 10px auto 0 auto;
+    box-shadow: 0 0 10px grey;
+    color: $type-text;
+    
 }
+
+.breakBackground {
+        background-color: $break-background;
+    }
+
+.workBackground { background-color: $type-background; }
 
 #svgContain {
     max-width: 75%;
@@ -70,5 +83,10 @@ body {
 }
 
 #count {
-    fill:white;
+    fill: white;   
+}
+#textBox {
+    stroke: black;
+    stroke-width: 3;
+    fill: none;
 }

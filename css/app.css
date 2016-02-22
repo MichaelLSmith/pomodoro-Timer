@@ -3,7 +3,7 @@
 pomodoroClock git:(master) ✗ sass --watch .:.
 */
 body {
-  background-color: #B5B5B5; }
+  background-color: #40557F; }
 
 .outer {
   width: 100%; }
@@ -21,11 +21,10 @@ body {
     display: block; }
 
 .nums {
-  color: #B5B5B5;
-  background-color: #1159CC;
+  color: black;
+  background-color: #EAE7E7;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 0 10px gray;
   line-height: 2.5em; }
   .nums span {
     font-size: 2.5em; }
@@ -34,7 +33,18 @@ body {
   font-size: 2.3em;
   padding-top: 8px;
   padding-bottom: 8px;
-  /*background-color: black;*/ }
+  /*background-color: $type-background;*/
+  max-width: 50%;
+  border-radius: 5px;
+  margin: 10px auto 0 auto;
+  box-shadow: 0 0 10px grey;
+  color: #EAE7E7; }
+
+.breakBackground {
+  background-color: #D4462B; }
+
+.workBackground {
+  background-color: #587F07; }
 
 #svgContain {
   max-width: 75%;
@@ -50,5 +60,10 @@ body {
 
 #count {
   fill: white; }
+
+#textBox {
+  stroke: black;
+  stroke-width: 3;
+  fill: none; }
 
 /*# sourceMappingURL=app.css.map */

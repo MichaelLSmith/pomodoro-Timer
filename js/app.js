@@ -1,9 +1,5 @@
 //timer Model
 
-//animation player
-var player = {};
-
-
 //timer variables:
 var countDown;
 var counterElm = document.getElementById('count');
@@ -25,12 +21,40 @@ for (var t = 0; t < timerButtons.length; t++) {
     timerButtons[t].addEventListener('click', timerCtrl, true);
 }
 
+//animation player
+    player = document.getElementById('fill')
+        .animate([
+            { r: 0 },
+            { r: 95 }
+            ],{
+                duration: dur,
+                direction: 'alternate',
+                iterations: 1
+            });
+        player.pause();
+
+    //after animation finishes, make radius set to fill undercircle. Onfinish method?
+
+//Animation Controller:
+//how to start animation when timer starts
+//right now it's running on page load -- think I have solution!
+//player object is empty. Have to call animationCtrl from click on play button.
+//for break -- either new circle, or just change fill colour
+//after work, and before break fill colour (radius) should reset to zero.
+
+console.log('dur: '+dur);
+console.dir(player);
+console.dir(document.getElementById('fill'));
+
 function timerCtrl(){
     console.log('in timerCtrl()');
     countDown = setInterval(counter, 1000);
+    //start animation
+    player.play();
+    console.dir(player);
 }
 
-//timer length controller:
+//timer duration controller:
 var buttons = document.querySelectorAll('i');
 
 for(var i = 0; i < 4; i++){
@@ -40,17 +64,12 @@ for(var i = 0; i < 4; i++){
 
 function counter(){
     secs --;
-    console.log('secs in counter()');
-    console.log(secs);
+    // console.log('secs in counter()');
+    // console.log(secs);
     counterElm.textContent = String(secs);
-    console.log(player);
-    animationCtrl();
-    player.play();
-
     if(secs === 0){
         clearInterval(countDown);
     }
-    // console.log(secs);
 }
 
 //how to lock out timer val buttons while running??
@@ -85,23 +104,3 @@ function adjustVal(evt){
     workTime.textContent = counterStr;
     console.log(workTime.textContent);
 }
-
-//Animation Controller:
-//how to start animation when timer starts
-//right now it's running on page load
-//player object is empty. Have to call animationCtrl from click on play button.
-
-function animationCtrl(){
-    player = document.getElementById('fill')
-        .animate([
-            { r: 0 },
-            { r: 95 }
-            ],{
-                duration: dur,
-                direction: 'alternate',
-                iterations: 1
-            });
-    //after animation finishes, make radius set to fill undercircle. Onfinish method?
-}
-
-
