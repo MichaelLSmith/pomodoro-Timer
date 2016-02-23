@@ -1,12 +1,52 @@
 //timer Model
 
-//timer variables:
+//timer variable -- need globally to stop timer in counter().
 var countDown;
+//variable that sets duration of timer --> bound to adjustable work/break durations
+var count;
+//counterElm is the number in circle
 var counterElm = document.getElementById('count');
 var workTime = document.querySelector('#workTime');
-console.log(workTime.textContent);
-var count = parseInt(counterElm.textContent);
-console.log(count);
+var breakTime = document.querySelector('#breakTime');
+
+
+
+//Set timer based on either Work or Break Time
+//to know if it's a break or work
+var type = 'work';
+
+if(type === 'work'){
+    console.log('in if type work')
+    count = parseInt(workTime.textContent);
+    console.log(count);
+}
+
+if(type === 'break'){
+    count = parseInt(breakTime.textContent);
+}
+  
+counterElm.textContent = String(count);
+
+    //after the work timer finishes, we need another timer based on the break value --> or just re-run same timer based on break duration.
+    //we also need a second animation --> could be a second circle or just the first circle with another fill colour.
+
+
+// console.log(workTime.textContent);
+// console.log(count);
+
+
+//after animation finishes, make radius set to fill undercircle. Onfinish method? Or keep empty with new number.
+//when timer stops, reset it to equal work time.
+
+//make timer based on work/break val, not count. Just make count display the timer current time.
+
+//for break
+    //
+    // -- either new circle, or just change fill colour
+    //after work, and before break fill colour (radius) should reset to zero.
+
+//add google's wave on buttons
+
 
 //convert minutes to seconds
 var secs = count * 60;
@@ -16,8 +56,6 @@ var dur = secs * 1000;
 //timer controls
 var typeButtons = document.querySelectorAll('.typeText');
 console.dir(typeButtons);
-
-//add google's wave on buttons
 
 for (var t = 0; t < typeButtons.length; t++) {
     typeButtons[t]
@@ -42,11 +80,6 @@ for(var i = 0; i < 4; i++){
                 iterations: 1
             });
         player.pause();
-
-//Animation Controller:
-//after animation finishes, make radius set to fill undercircle. Onfinish method?
-//for break -- either new circle, or just change fill colour
-//after work, and before break fill colour (radius) should reset to zero.
 
 console.log('dur: '+dur);
 console.dir(player);
@@ -74,30 +107,38 @@ function counter(){
     }
 }
 
-//when timer stops, reset it to equal work time. 
-
 function adjustVal(evt){
-    console.dir(evt);
+    // console.dir(evt);
     //try using the jsGame obj literal structure for all this:
     if(evt.target.id === 'workAdd'){
         console.log('if workAdd');
         count += 1;
     }
     if(evt.target.id === 'workSubtract'){
-        if(count > 0){ console.log('0 if statement'); count -= 1; }
+        if(count > 0){ count -= 1; }
         else count = 0;
     }
 
     if(evt.target.id === 'breakAdd'){
-
+        count += 1;
     }
 
-    if(evt.target.id === 'breakSubtract'){
-
+    if(evt.target.id === 'breakSubtrack'){
+        if(count > 0){ count -= 1; }
+        else count = 0;
     }
-    var counterStr = String(count);
-    console.log(counterStr);
-    counterElm.textContent = counterStr;
-    workTime.textContent = counterStr;
-    console.log(workTime.textContent);
+    //bind the circle time display to the count variable of timer:
+    counterElm.textContent = String(count);
+
+
+    
+    //Original set-up when timer was based on circle number:
+    // var counterStr = String(count);
+    // console.log(counterStr);
+    // counterElm.textContent = counterStr;
+    // workTime.textContent = counterStr;
+    // console.log(workTime.textContent);
+
+
+
 }

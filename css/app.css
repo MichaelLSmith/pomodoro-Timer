@@ -63,7 +63,8 @@ i {
   fill: #8C9116; }
 
 #count {
-  fill: white; }
+  fill: white;
+  text-anchor: middle; }
 
 #textBox {
   stroke: black;
