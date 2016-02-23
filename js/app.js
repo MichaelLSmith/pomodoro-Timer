@@ -14,11 +14,19 @@ var secs = count * 60;
 var dur = secs * 1000;
 
 //timer controls
-var timerButtons = document.querySelectorAll('#work, #break');
-console.dir(timerButtons);
+var typeButtons = document.querySelectorAll('.typeText');
+console.dir(typeButtons);
 
-for (var t = 0; t < timerButtons.length; t++) {
-    timerButtons[t].addEventListener('click', timerCtrl, true);
+for (var t = 0; t < typeButtons.length; t++) {
+    typeButtons[t]
+        .addEventListener('click', timerCtrl, true);
+}
+
+//timer duration controller:
+var durButtons = document.querySelectorAll('i');
+for(var i = 0; i < 4; i++){
+    durButtons[i]
+        .addEventListener('click', adjustVal, true);
 }
 
 //animation player
@@ -49,23 +57,18 @@ console.dir(document.getElementById('fill'));
 function timerCtrl(){
     console.log('in timerCtrl()');
     countDown = setInterval(counter, 1000);
-    //start animation
     player.play();
     console.dir(player);
-}
 
-//timer duration controller:
-var buttons = document.querySelectorAll('i');
-
-for(var i = 0; i < 4; i++){
-    buttons[i]
-    .addEventListener('click', adjustVal, true);
+    //disable time buttons
+    console.log(durButtons);
+    // for (var a = 0; a < dur.length; a++) {
+    //     dur[a].removeEventListener('click', adjustVal, true);
+    // }
 }
 
 function counter(){
     secs --;
-    // console.log('secs in counter()');
-    // console.log(secs);
     counterElm.textContent = String(secs);
     if(secs === 0){
         clearInterval(countDown);
