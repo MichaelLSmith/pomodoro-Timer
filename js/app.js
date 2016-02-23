@@ -17,6 +17,8 @@ var dur = secs * 1000;
 var typeButtons = document.querySelectorAll('.typeText');
 console.dir(typeButtons);
 
+//add google's wave on buttons
+
 for (var t = 0; t < typeButtons.length; t++) {
     typeButtons[t]
         .addEventListener('click', timerCtrl, true);
@@ -41,12 +43,8 @@ for(var i = 0; i < 4; i++){
             });
         player.pause();
 
-    //after animation finishes, make radius set to fill undercircle. Onfinish method?
-
 //Animation Controller:
-//how to start animation when timer starts
-//right now it's running on page load -- think I have solution!
-//player object is empty. Have to call animationCtrl from click on play button.
+//after animation finishes, make radius set to fill undercircle. Onfinish method?
 //for break -- either new circle, or just change fill colour
 //after work, and before break fill colour (radius) should reset to zero.
 
@@ -62,9 +60,10 @@ function timerCtrl(){
 
     //disable time buttons
     console.log(durButtons);
-    // for (var a = 0; a < dur.length; a++) {
-    //     dur[a].removeEventListener('click', adjustVal, true);
-    // }
+    for (var a = 0; a < dur.length; a++) {
+        console.log(durButtons[a]);
+        durButtons[a].removeEventListener('click', adjustVal, true);
+    }
 }
 
 function counter(){
@@ -75,23 +74,18 @@ function counter(){
     }
 }
 
-//how to lock out timer val buttons while running??
-//display mins/secs on circle
 //when timer stops, reset it to equal work time. 
-//can't run under zero - right now if you press start, it will start counting into negatives.
-//make count equal work/break time, not the counter in the circle. The counter in the circle should just display the time, not control the timer.
-//if the start/stop functionality moves to circle, it will fix the problem of changing time starting the timer.
-
 
 function adjustVal(evt){
     console.dir(evt);
+    //try using the jsGame obj literal structure for all this:
     if(evt.target.id === 'workAdd'){
         console.log('if workAdd');
         count += 1;
-        console.log(count);
     }
     if(evt.target.id === 'workSubtract'){
-        count -= 1;
+        if(count > 0){ console.log('0 if statement'); count -= 1; }
+        else count = 0;
     }
 
     if(evt.target.id === 'breakAdd'){
