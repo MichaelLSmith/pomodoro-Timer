@@ -2,17 +2,18 @@
 
 //timer variable -- need globally to stop timer in counter().
 var countDown;
-//variable that sets duration of timer --> bound to adjustable work/break durations
-var count;
 //counterElm is the number in circle
-var counterElm = document.getElementById('count');
-var workTime = document.querySelector('#workTime');
-var breakTime = document.querySelector('#breakTime');
+var counterElm = document.getElementById('count'),
+    workTime   = document.querySelector('#workTime'),
+    breakTime  = document.querySelector('#breakTime');
 
-
+//timer duration variables--> bound to adjustable work/break durations in adjustVal().
+var count,
+    workCount  = 1,
+    breakCount = 1;
 
 //Set timer based on either Work or Break Time
-//to know if it's a break or work
+//to know if it's a break or work -- might be replaced by the work/break variables.
 var type = 'work';
 
 if(type === 'work'){
@@ -25,14 +26,10 @@ if(type === 'break'){
     count = parseInt(breakTime.textContent);
 }
   
-counterElm.textContent = String(count);
+// counterElm.textContent = String(count);
 
     //after the work timer finishes, we need another timer based on the break value --> or just re-run same timer based on break duration.
     //we also need a second animation --> could be a second circle or just the first circle with another fill colour.
-
-
-// console.log(workTime.textContent);
-// console.log(count);
 
 
 //after animation finishes, make radius set to fill undercircle. Onfinish method? Or keep empty with new number.
@@ -111,26 +108,34 @@ function counter(){
 function adjustVal(evt){
     // console.dir(evt);
     //try using the jsGame obj literal structure for all this:
+
+    //workTime.textContent is a string
+    //workDuration needs to be a number
+    // var workDuration = workTime.textContent;
+
+    //maybe the simplest way to control the timer duration is to have two variables. One call work and one called break. They would be numbers and would be adjusted independently of each other. If user clicks work button, the timer starts using the work duration, followed by the break duration. If the user clicks break button, the timer uses the break duration, followed by the work duration. It can only run one cycle.
+    //the type variable would change (to 'work' or 'break') depending on which button is pressed. The timer would run based on either 'work' or 'break' duration.
+
     if(evt.target.id === 'workAdd'){
-        console.log('if workAdd');
-        count += 1;
+        workCount += 1;
     }
     if(evt.target.id === 'workSubtract'){
-        if(count > 0){ count -= 1; }
-        else count = 0;
+        if(workCount > 0){ workCount -= 1; }
+        else workCount = 0;
     }
 
     if(evt.target.id === 'breakAdd'){
-        count += 1;
+        breakCount += 1;
     }
 
     if(evt.target.id === 'breakSubtrack'){
-        if(count > 0){ count -= 1; }
-        else count = 0;
+        if(breakCount > 0){ breakCount -= 1; }
+        else breakCount = 0;
     }
     //bind the circle time display to the count variable of timer:
-    counterElm.textContent = String(count);
-    workTime.textContent = String(count);
+    // counterElm.textContent = String(count);
+    workTime.textContent = String(workCount);
+    breakTime.textContent= String(breakCount);
 
 
     
