@@ -104,6 +104,7 @@ function counter(){
     counterElm.textContent = String(secs);
     if(secs === 0){
         clearInterval(countDown);
+        type = 'break';
     }
 }
 
@@ -129,6 +130,7 @@ function adjustVal(evt){
     }
     //bind the circle time display to the count variable of timer:
     counterElm.textContent = String(count);
+    workTime.textContent = String(count);
 
 
     
