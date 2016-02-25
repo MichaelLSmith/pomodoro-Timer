@@ -2,6 +2,7 @@
 
 //timer variable -- need globally to stop timer in counter().
 var countDown;
+
 //counterElm is the number in circle
 var counterElm = document.getElementById('count'),
     workTime   = document.querySelector('#workTime'),
@@ -12,19 +13,23 @@ var count,
     workCount  = 1,
     breakCount = 1;
 
+//timer/animation variables
+var secs,
+    dur;
+
 //Set timer based on either Work or Break Time
 //to know if it's a break or work -- might be replaced by the work/break variables.
 var type = 'work';
 
-if(type === 'work'){
-    console.log('in if type work')
-    count = parseInt(workTime.textContent);
-    console.log(count);
-}
+// if(type === 'work'){
+//     console.log('in if type work')
+//     count = parseInt(workTime.textContent);
+//     console.log(count);
+// }
 
-if(type === 'break'){
-    count = parseInt(breakTime.textContent);
-}
+// if(type === 'break'){
+//     count = parseInt(breakTime.textContent);
+// }
   
 // counterElm.textContent = String(count);
 
@@ -36,6 +41,7 @@ if(type === 'break'){
 //when timer stops, reset it to equal work time.
 
 //make timer based on work/break val, not count. Just make count display the timer current time.
+//display mins and secs in circle
 
 //for break
     //
@@ -45,10 +51,7 @@ if(type === 'break'){
 //add google's wave on buttons
 
 
-//convert minutes to seconds
-var secs = count * 60;
-//convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
-var dur = secs * 1000;
+
 
 //timer controls
 var typeButtons = document.querySelectorAll('.typeText');
@@ -82,8 +85,24 @@ console.log('dur: '+dur);
 console.dir(player);
 console.dir(document.getElementById('fill'));
 
-function timerCtrl(){
+function timerCtrl(evt){
     console.log('in timerCtrl()');
+    console.dir(evt);
+    console.log(count);
+    
+    if(evt.target.id === 'work'){
+       count = workCount; 
+    }
+    if(evt.target.id === 'break'){
+        count = breakCount;
+    }
+
+
+    //convert minutes to seconds
+    secs = count * 60;
+    //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
+    dur = secs * 1000;
+
     countDown = setInterval(counter, 1000);
     player.play();
     console.dir(player);
@@ -115,6 +134,7 @@ function adjustVal(evt){
 
     //maybe the simplest way to control the timer duration is to have two variables. One call work and one called break. They would be numbers and would be adjusted independently of each other. If user clicks work button, the timer starts using the work duration, followed by the break duration. If the user clicks break button, the timer uses the break duration, followed by the work duration. It can only run one cycle.
     //the type variable would change (to 'work' or 'break') depending on which button is pressed. The timer would run based on either 'work' or 'break' duration.
+    console.log(count);
 
     if(evt.target.id === 'workAdd'){
         workCount += 1;
@@ -145,7 +165,4 @@ function adjustVal(evt){
     // counterElm.textContent = counterStr;
     // workTime.textContent = counterStr;
     // console.log(workTime.textContent);
-
-
-
 }
