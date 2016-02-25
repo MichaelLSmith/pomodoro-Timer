@@ -50,8 +50,21 @@ var type = 'work';
 
 //add google's wave on buttons
 
+//animation player
 
-
+function buildAnimation(dur){
+    console.log(dur);
+    player = document.getElementById('fill')
+        .animate([
+            { r: 0 },
+            { r: 95 }
+            ],{
+                duration: dur,
+                direction: 'alternate',
+                iterations: 1
+            });
+        player.pause();
+}
 
 //timer controls
 var typeButtons = document.querySelectorAll('.typeText');
@@ -69,26 +82,12 @@ for(var i = 0; i < 4; i++){
         .addEventListener('click', adjustVal, true);
 }
 
-//animation player
-    player = document.getElementById('fill')
-        .animate([
-            { r: 0 },
-            { r: 95 }
-            ],{
-                duration: dur,
-                direction: 'alternate',
-                iterations: 1
-            });
-        player.pause();
-
 console.log('dur: '+dur);
-console.dir(player);
 console.dir(document.getElementById('fill'));
 
 function timerCtrl(evt){
     console.log('in timerCtrl()');
     console.dir(evt);
-    console.log(count);
     
     if(evt.target.id === 'work'){
        count = workCount; 
@@ -96,12 +95,15 @@ function timerCtrl(evt){
     if(evt.target.id === 'break'){
         count = breakCount;
     }
-
+    console.log(count);
 
     //convert minutes to seconds
     secs = count * 60;
+    console.log(secs);
     //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
     dur = secs * 1000;
+    
+    buildAnimation(dur);
 
     countDown = setInterval(counter, 1000);
     player.play();
@@ -134,7 +136,6 @@ function adjustVal(evt){
 
     //maybe the simplest way to control the timer duration is to have two variables. One call work and one called break. They would be numbers and would be adjusted independently of each other. If user clicks work button, the timer starts using the work duration, followed by the break duration. If the user clicks break button, the timer uses the break duration, followed by the work duration. It can only run one cycle.
     //the type variable would change (to 'work' or 'break') depending on which button is pressed. The timer would run based on either 'work' or 'break' duration.
-    console.log(count);
 
     if(evt.target.id === 'workAdd'){
         workCount += 1;
@@ -157,6 +158,8 @@ function adjustVal(evt){
     workTime.textContent = String(workCount);
     breakTime.textContent= String(breakCount);
 
+    console.log('workCount: '+workCount);
+    console.log('breakCount: '+breakCount);
 
     
     //Original set-up when timer was based on circle number:
