@@ -71,4 +71,16 @@ i {
   stroke-width: 3;
   fill: none; }
 
+input {
+  border: none;
+  background-color: #EAE7E7;
+  font-size: 2.5em;
+  width: 25%;
+  text-align: center;
+  -webkit-appearance: none;
+  margin-top: 5px; }
+
+*:focus {
+  outline: none; }
+
 /*# sourceMappingURL=app.css.map */

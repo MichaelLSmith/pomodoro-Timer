@@ -24,19 +24,11 @@ var durButtons = document.querySelectorAll('i');
 var workButton = document.getElementById('work'),
     breakButton = document.getElementById('break');
 
+console.dir(workTime);
+
 //Set timer based on either Work or Break Time
 //to know if it's a break or work -- might be replaced by the work/break variables.
 var type = 'work';
-
-// //don't know if I need this function. Might just change it with assignment.
-// function changeDur(evt){
-//     if(evt.target.id === 'work'){
-//        count = workCount; 
-//     }
-//     if(evt.target.id === 'break'){
-//         count = breakCount;
-//     }
-// }
 
 function buttonsOn() {
     workButton.onclick = timerCtrl;
@@ -59,27 +51,36 @@ function buttonsOff(){
 }
 
 buttonsOn();
-  
 
-    //after the work timer finishes, we need another timer based on the break value --> or just re-run same timer based on break duration.
-    //we also need a second animation --> could be a second circle or just the first circle with another fill colour.
 
+//Todos:    
+//we need a second animation --> could be a second circle or just the first circle with another fill colour.
+//change event to background of plus/minus so it doesn't select when you double click quickly.
 
 //after animation finishes, make radius set to fill undercircle. Onfinish method? Or keep empty with new number.
 //when timer stops, reset it to equal work time.
-
-//make timer based on work/break val, not count. Just make count display the timer current time.
-//display mins and secs in circle
-
-//for break
-    //
-    // -- either new circle, or just change fill colour
-    //after work, and before break fill colour (radius) should reset to zero.
-
 //add google's wave on buttons
 
-//animation player
+//display hours:minutes:seconds in circle countdown
 
+function timeFormat() {
+    //based on: http://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+    //minutes are set by the adjustVal buttons
+    //so my 'total' is minutes
+
+   var seconds = Math.floor( (t/1000) % 60 );
+   var minutes = Math.floor( (t/1000/60) % 60 );
+   var hours = Math.floor( (t/(1000*60*60)) % 24 );
+
+    return {
+        'total': t,
+        'hours': hours,
+        'minutes': minutes,
+        'seconds': seconds
+    };
+}
+
+//animation player
 function buildAnimation(){
 
     //calculate duration based on work or break
@@ -87,6 +88,14 @@ function buildAnimation(){
     secs = count * 60;
     //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
     dur = secs * 1000;
+
+ 
+
+//add hr:mins:secs calculation from function here??
+
+
+
+
 
     player = fillCirc.animate([
         { r: 0 },
@@ -142,7 +151,7 @@ function timerCtrl(evt){
 function counter(){
     secs --;
 
-    //what displays in circle. Should be min:sec
+    //what displays in circle during timer. Should be min:sec
     counterElm.textContent = String(secs);
     if(secs === 0){
         clearInterval(countDown);
@@ -151,14 +160,15 @@ function counter(){
 }
 
 function adjustVal(evt){
-    // console.dir(evt);
     //try using the jsGame obj literal structure for all this:
 
-    //workTime.textContent is a string
-    //workDuration needs to be a number
-    // var workDuration = workTime.textContent;
+    //could change how count is set:
+        //have plus/minus buttons just adjust input.val
+        //is another event needed when input.val changes? Or can all this be done in adjustVal()?
+        //count = input.val (either work or break)
+        //counterElm.text content = input.val (defaults to work, but will switch to break when break counter runs. This happens already based on counter() counterElm.textContent = String(secs))
 
-    //maybe the simplest way to control the timer duration is to have two variables. One call work and one called break. They would be numbers and would be adjusted independently of each other. If user clicks work button, the timer starts using the work duration, followed by the break duration.
+
 
     if(evt.target.id === 'workAdd'){
         workCount += 1;
@@ -176,11 +186,15 @@ function adjustVal(evt){
         if(breakCount > 0){ breakCount -= 1; }
         else breakCount = 0;
     }
+
     //bind the circle time display to the count variable of timer:
-    // counterElm.textContent = String(count);
-    workTime.textContent = String(workCount);
-    breakTime.textContent= String(breakCount);
+    workTime.value  = String(workCount);
+    breakTime.value = String(breakCount);
 
     console.log('workCount: '+workCount);
     console.log('breakCount: '+breakCount);
+}
+
+function adjustStaticCounter(){
+    //when user adjust value
 }
