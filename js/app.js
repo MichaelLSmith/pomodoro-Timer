@@ -24,7 +24,9 @@ var durButtons = document.querySelectorAll('i');
 var workButton = document.getElementById('work'),
     breakButton = document.getElementById('break');
 
-console.dir(workTime);
+counterElm.textContent = String(workCount);
+workTime.value  = workCount;
+breakTime.value = breakCount;
 
 //Set timer based on either Work or Break Time
 //to know if it's a break or work -- might be replaced by the work/break variables.
@@ -33,7 +35,9 @@ var type = 'work';
 function buttonsOn() {
     workButton.onclick = timerCtrl;
     breakButton.onclick = timerCtrl;
-
+    workTime.disabled = false;
+    breakTime.disabled = false;
+    
     for(var i = 0; i < 4; i++){
     durButtons[i]
         .addEventListener('click', adjustVal, true);
@@ -43,6 +47,8 @@ function buttonsOn() {
 function buttonsOff(){
     workButton.onclick = null;
     breakButton.onclick = null;
+    workTime.setAttribute("disabled", true);
+    breakTime.setAttribute("disabled", true);
 
     for(var i = 0; i < 4; i++){
     durButtons[i]
@@ -60,6 +66,9 @@ buttonsOn();
 //after animation finishes, make radius set to fill undercircle. Onfinish method? Or keep empty with new number.
 //when timer stops, reset it to equal work time.
 //add google's wave on buttons
+//add reset timer - could leave break time active so you change break time while work time running, but this will be complicated.
+
+
 
 //display hours:minutes:seconds in circle countdown
 
@@ -68,16 +77,22 @@ function timeFormat() {
     //minutes are set by the adjustVal buttons
     //so my 'total' is minutes
 
-   var seconds = Math.floor( (t/1000) % 60 );
-   var minutes = Math.floor( (t/1000/60) % 60 );
-   var hours = Math.floor( (t/(1000*60*60)) % 24 );
+    console.log(workCount);
 
-    return {
-        'total': t,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds
-    };
+    if(type === 'work'){var t = workCount}
+    if(type === 'break'){t = breakCount}
+
+    var seconds = Math.floor( t * 60 );
+    console.log(seconds)
+    // var minutes = Math.floor( (t/1000/60) % 60 );
+    // var hours = Math.floor( (t/(1000*60*60)) % 24 );
+
+    // return {
+    //     'total': t,
+    //     'hours': hours,
+    //     'minutes': minutes,
+    //     'seconds': seconds
+    // };
 }
 
 //animation player
@@ -110,9 +125,15 @@ function buildAnimation(){
 }
 
 function timerCtrl(evt){
-    //may not need evt var
     console.log('in timerCtrl()');
     console.log(type);
+
+    //get Date Obj
+    var d = new Date();
+    var h = d.getHours()
+    console.dir(h);
+
+
     if(type === 'work'){
         count = workCount;
         type = 'break';
@@ -162,39 +183,28 @@ function counter(){
 function adjustVal(evt){
     //try using the jsGame obj literal structure for all this:
 
-    //could change how count is set:
-        //have plus/minus buttons just adjust input.val
-        //is another event needed when input.val changes? Or can all this be done in adjustVal()?
-        //count = input.val (either work or break)
-        //counterElm.text content = input.val (defaults to work, but will switch to break when break counter runs. This happens already based on counter() counterElm.textContent = String(secs))
-
-
-
     if(evt.target.id === 'workAdd'){
-        workCount += 1;
+        workTime.stepUp(1);
+
     }
     if(evt.target.id === 'workSubtract'){
-        if(workCount > 0){ workCount -= 1; }
-        else workCount = 0;
+        if(workTime.valueAsNumber > 0){ workTime.stepDown(1); }
+        else workTime.value = '0';
     }
 
     if(evt.target.id === 'breakAdd'){
-        breakCount += 1;
+        breakTime.stepUp(1);
     }
 
     if(evt.target.id === 'breakSubtrack'){
-        if(breakCount > 0){ breakCount -= 1; }
-        else breakCount = 0;
+        if(breakTime.valueAsNumber > 0){ breakTime.stepDown(1); }
+        else breakTime.value = '0';
     }
 
+    timeFormat();
+
     //bind the circle time display to the count variable of timer:
-    workTime.value  = String(workCount);
-    breakTime.value = String(breakCount);
-
-    console.log('workCount: '+workCount);
-    console.log('breakCount: '+breakCount);
-}
-
-function adjustStaticCounter(){
-    //when user adjust value
+    workCount  = workTime.valueAsNumber;
+    breakCount = breakTime.valueAsNumber;
+    counterElm.textContent = String(workCount);
 }
