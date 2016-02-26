@@ -5,6 +5,7 @@ var countDown;
 
 //counterElm is the number in circle
 var counterElm = document.getElementById('count'),
+    fillCirc   = document.getElementById('fill'),
     workTime   = document.querySelector('#workTime'),
     breakTime  = document.querySelector('#breakTime');
 
@@ -14,24 +15,51 @@ var count,
     breakCount = 1;
 
 //timer/animation variables
-var secs,
+var player,
+    secs,
     dur;
+
+//button Variables
+var durButtons = document.querySelectorAll('i');
+var workButton = document.getElementById('work'),
+    breakButton = document.getElementById('break');
 
 //Set timer based on either Work or Break Time
 //to know if it's a break or work -- might be replaced by the work/break variables.
 var type = 'work';
 
-// if(type === 'work'){
-//     console.log('in if type work')
-//     count = parseInt(workTime.textContent);
-//     console.log(count);
+// //don't know if I need this function. Might just change it with assignment.
+// function changeDur(evt){
+//     if(evt.target.id === 'work'){
+//        count = workCount; 
+//     }
+//     if(evt.target.id === 'break'){
+//         count = breakCount;
+//     }
 // }
 
-// if(type === 'break'){
-//     count = parseInt(breakTime.textContent);
-// }
+function buttonsOn() {
+    workButton.onclick = timerCtrl;
+    breakButton.onclick = timerCtrl;
+
+    for(var i = 0; i < 4; i++){
+    durButtons[i]
+        .addEventListener('click', adjustVal, true);
+    }
+}
+
+function buttonsOff(){
+    workButton.onclick = null;
+    breakButton.onclick = null;
+
+    for(var i = 0; i < 4; i++){
+    durButtons[i]
+        .removeEventListener('click', adjustVal, true);
+    }
+}
+
+buttonsOn();
   
-// counterElm.textContent = String(count);
 
     //after the work timer finishes, we need another timer based on the break value --> or just re-run same timer based on break duration.
     //we also need a second animation --> could be a second circle or just the first circle with another fill colour.
@@ -52,77 +80,73 @@ var type = 'work';
 
 //animation player
 
-function buildAnimation(dur){
-    console.log(dur);
-    player = document.getElementById('fill')
-        .animate([
-            { r: 0 },
-            { r: 95 }
-            ],{
-                duration: dur,
-                direction: 'alternate',
-                iterations: 1
-            });
-        player.pause();
+function buildAnimation(){
+
+    //calculate duration based on work or break
+    //convert minutes to seconds
+    secs = count * 60;
+    //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
+    dur = secs * 1000;
+
+    player = fillCirc.animate([
+        { r: 0 },
+        { r: 95 }
+        ],{
+            duration: dur,
+            direction: 'alternate',
+            iterations: 1
+        });
+    
+    player.pause();
 }
-
-//timer controls
-var typeButtons = document.querySelectorAll('.typeText');
-console.dir(typeButtons);
-
-for (var t = 0; t < typeButtons.length; t++) {
-    typeButtons[t]
-        .addEventListener('click', timerCtrl, true);
-}
-
-//timer duration controller:
-var durButtons = document.querySelectorAll('i');
-for(var i = 0; i < 4; i++){
-    durButtons[i]
-        .addEventListener('click', adjustVal, true);
-}
-
-console.log('dur: '+dur);
-console.dir(document.getElementById('fill'));
 
 function timerCtrl(evt){
+    //may not need evt var
     console.log('in timerCtrl()');
-    console.dir(evt);
-    
-    if(evt.target.id === 'work'){
-       count = workCount; 
-    }
-    if(evt.target.id === 'break'){
-        count = breakCount;
+    console.log(type);
+    if(type === 'work'){
+        count = workCount;
+        type = 'break';
+        buttonsOn();
     }
     console.log(count);
 
-    //convert minutes to seconds
-    secs = count * 60;
-    console.log(secs);
-    //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
-    dur = secs * 1000;
-    
+    //calculates duration based on work or break count and then builds animation player
     buildAnimation(dur);
 
     countDown = setInterval(counter, 1000);
     player.play();
-    console.dir(player);
 
-    //disable time buttons
-    console.log(durButtons);
-    for (var a = 0; a < dur.length; a++) {
-        console.log(durButtons[a]);
-        durButtons[a].removeEventListener('click', adjustVal, true);
+    player.onfinish = function() {
+        console.log('onfinish()');
+
+        player.cancel();
+        
+        if(type === 'break'){
+            count = breakCount;
+            timerCtrl();
+            type = 'work';
+            console.log(type);
+            //need to change the colour of the fill for break
+        }
+
+        else if(type === 'work') {
+            console.log('buttonsOn');
+            buttonsOn();
+        }
     }
+    
+    buttonsOff();
 }
 
 function counter(){
     secs --;
+
+    //what displays in circle. Should be min:sec
     counterElm.textContent = String(secs);
     if(secs === 0){
         clearInterval(countDown);
-        type = 'break';
+        // type = 'break';
     }
 }
 
@@ -134,8 +158,7 @@ function adjustVal(evt){
     //workDuration needs to be a number
     // var workDuration = workTime.textContent;
 
-    //maybe the simplest way to control the timer duration is to have two variables. One call work and one called break. They would be numbers and would be adjusted independently of each other. If user clicks work button, the timer starts using the work duration, followed by the break duration. If the user clicks break button, the timer uses the break duration, followed by the work duration. It can only run one cycle.
-    //the type variable would change (to 'work' or 'break') depending on which button is pressed. The timer would run based on either 'work' or 'break' duration.
+    //maybe the simplest way to control the timer duration is to have two variables. One call work and one called break. They would be numbers and would be adjusted independently of each other. If user clicks work button, the timer starts using the work duration, followed by the break duration.
 
     if(evt.target.id === 'workAdd'){
         workCount += 1;
@@ -160,12 +183,4 @@ function adjustVal(evt){
 
     console.log('workCount: '+workCount);
     console.log('breakCount: '+breakCount);
-
-    
-    //Original set-up when timer was based on circle number:
-    // var counterStr = String(count);
-    // console.log(counterStr);
-    // counterElm.textContent = counterStr;
-    // workTime.textContent = counterStr;
-    // console.log(workTime.textContent);
 }
