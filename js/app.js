@@ -72,28 +72,19 @@ buttonsOn();
 
 //display hours:minutes:seconds in circle countdown
 
-function timeFormat() {
+function timeFormat(t) {
     //based on: http://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
     //minutes are set by the adjustVal buttons
+    // if(type === 'work'){var t = workCount}
+    // if(type === 'break'){t = breakCount}
     //so my 'total' is minutes
+    var seconds = Math.floor( (t/1000) % 60 );
+    var minutes = Math.floor( (t/1000/60) % 60 );
 
-    console.log(workCount);
-
-    if(type === 'work'){var t = workCount}
-    if(type === 'break'){t = breakCount}
-
-    var seconds = Math.floor( t * 60 );
-    console.log(seconds)
-    // var minutes = Math.floor( (t/1000/60) % 60 );
-    // var hours = Math.floor( (t/(1000*60*60)) % 24 );
-
-    // return {
-    //     'total': t,
-    //     'hours': hours,
-    //     'minutes': minutes,
-    //     'seconds': seconds
-    // };
-}
+    return {
+        minutes: minutes,
+        seconds: seconds,
+    }
 
 //animation player
 function buildAnimation(){
@@ -127,12 +118,6 @@ function buildAnimation(){
 function timerCtrl(evt){
     console.log('in timerCtrl()');
     console.log(type);
-
-    //get Date Obj
-    var d = new Date();
-    var h = d.getHours()
-    console.dir(h);
-
 
     if(type === 'work'){
         count = workCount;
@@ -170,6 +155,7 @@ function timerCtrl(evt){
 }
 
 function counter(){
+    //milliseconds need to count down instead of secs
     secs --;
 
     //what displays in circle during timer. Should be min:sec
