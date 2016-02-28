@@ -19,9 +19,8 @@ var count,
 
 //timer/animation variables
 var player,
-    timeObj = {},
-    secs,
-    dur;
+    milliseconds;
+
 
 //button Variables
 var durButtons = document.querySelectorAll('i');
@@ -78,20 +77,17 @@ buttonsOn();
 //display hours:minutes:seconds in circle countdown
 
 function timeFormat(t) {
-    console.log('timeFormat()');
     //timer.js equiv -- timeCalc
 
     //based on: http://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
 
-    //count comes in from timerCtrl() (already set from either breakTime or workTime)
+    console.log('t: '+t);
 
-    //need to convert t from mins to ms
+    var seconds = Math.floor( (t/1000) % 60 );
+    var minutes = Math.floor( (t/1000/60) % 60 );
+    var milliseconds = t;
 
-    var minutes = t;
-    var seconds = t * 60;
-    var milliseconds = seconds * 1000;
-
-    console.log(minutes, seconds, milliseconds);
+    console.log(seconds, minutes);
 
     return {
         minutes: minutes,
@@ -107,7 +103,6 @@ function buildAnimation(dur){
 
     //buildAnimation() called in timerCtrl and dur is calculated in timeFormat();
 
-    console.log('dur: '+dur);
 
     //convert minutes to seconds
     // secs = count * 60;
@@ -130,6 +125,8 @@ function timerCtrl(evt){
     //equivalent of timerInit();
     console.log('in timerCtrl()');
 
+    console.log(type);
+
     if(type === 'work'){
         console.log('type in timerCtrl if: '+type);
         count = workCount;
@@ -142,15 +139,13 @@ function timerCtrl(evt){
         count = breakCount;
         type  = 'work';
     }
-    console.log('count in timerCtrl()'+count);
-
+    
     //pass count (based on either break or work time in above if statements) into milliseconds for timeFormat() to process.
 
-    timeObj = timeFormat(count); // may have to make this a global var.
-    console.log(timeObj);
-
     //calculates duration based on work or break count and then builds animation player
-    buildAnimation(timeObj.milliseconds);
+    milliseconds = (+count * 60) * 1000;
+
+    buildAnimation(milliseconds);
 
     countDown = setInterval(counter, 1000);
     player.play();
@@ -174,19 +169,15 @@ function counter(){
     //milliseconds need to count down instead of secs
     //call in timeFormat(t) == t should = count, which will be in minutes. timeFormat will convert t to secs.
 
-    console.log(timeObj);
-
-    var ticks = timeObj.milliseconds;
-
-    ticks -= 1000;
+    var t = timeFormat(milliseconds);
+    milliseconds -= 1000;
+    console.log(t);
 
     //what displays in circle during timer. Should be min:sec
-    // counterElm.textContent = String(secs);
-    console.log(ticks);
-    
+    console.dir(counterElm);
+    counterElm.textContent = t.minutes+':'+t.seconds;
 
-
-    if(ticks === 0){
+    if(t.milliseconds === 0){
         clearInterval(countDown);
         if(type === 'work'){
             timerCtrl();
@@ -219,5 +210,5 @@ function adjustVal(evt){
     //bind the circle time display to the count variable of timer:
     workCount  = workTime.valueAsNumber;
     breakCount = breakTime.valueAsNumber;
-    counterElm.textContent = String(workCount);
+    // counterElm.textContent = String(workCount);
 }
