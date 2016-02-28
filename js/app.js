@@ -10,9 +10,6 @@ var counterElm = document.getElementById('count'),
     breakTime  = document.querySelector('#breakTime');
 
 //timer duration variables--> bound to adjustable work/break durations in adjustVal().
-//where is count used??
-//count is set from the value of the counter buttons in minutes
-//it is used to set the secs that decrease in the timer (secs --);
 var count,
     workCount  = 1,
     breakCount = 1;
@@ -20,7 +17,6 @@ var count,
 //timer/animation variables
 var player,
     milliseconds;
-
 
 //button Variables
 var durButtons = document.querySelectorAll('i');
@@ -31,8 +27,6 @@ counterElm.textContent = String(workCount);
 workTime.value  = workCount;
 breakTime.value = breakCount;
 
-//Set timer based on either Work or Break Time
-//to know if it's a break or work -- might be replaced by the work/break variables.
 var type = 'work';
 
 function buttonsOn() {
@@ -61,9 +55,9 @@ function buttonsOff(){
 
 buttonsOn();
 
-
 //Todos:
-//second timer double count???
+
+//entering value directly into input field changes val in circle
 //we need a second animation --> could be a second circle or just the first circle with another fill colour.
 //change event to background of plus/minus so it doesn't select when you double click quickly.
 
@@ -72,22 +66,12 @@ buttonsOn();
 //add google's wave on buttons
 //add reset timer - could leave break time active so you change break time while work time running, but this will be complicated.
 
-
-
-//display hours:minutes:seconds in circle countdown
-
 function timeFormat(t) {
-    //timer.js equiv -- timeCalc
-
     //based on: http://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
-
-    console.log('t: '+t);
 
     var seconds = Math.floor( (t/1000) % 60 );
     var minutes = Math.floor( (t/1000/60) % 60 );
     var milliseconds = t;
-
-    console.log(seconds, minutes);
 
     return {
         minutes: minutes,
@@ -98,17 +82,6 @@ function timeFormat(t) {
 
 //animation player
 function buildAnimation(dur){
-    //count val comes from the buttons values.
-    //calculate duration based on work or break
-
-    //buildAnimation() called in timerCtrl and dur is calculated in timeFormat();
-
-
-    //convert minutes to seconds
-    // secs = count * 60;
-    // //convert seconds to milliseconds > dur var controls how long the animation runs > tied directly to time of counter.
-    // dur = secs * 1000;
-
     player = fillCirc.animate([
         { r: 0 },
         { r: 95 }
@@ -117,20 +90,17 @@ function buildAnimation(dur){
             direction: 'alternate',
             iterations: 1
         });
-    
     player.pause();
 }
 
 function timerCtrl(evt){
-    //equivalent of timerInit();
     console.log('in timerCtrl()');
-
-    console.log(type);
 
     if(type === 'work'){
         console.log('type in timerCtrl if: '+type);
         count = workCount;
         type = 'break';
+        console.log(type);
         buttonsOn();
     }
 
@@ -139,12 +109,9 @@ function timerCtrl(evt){
         count = breakCount;
         type  = 'work';
     }
-    
-    //pass count (based on either break or work time in above if statements) into milliseconds for timeFormat() to process.
 
     //calculates duration based on work or break count and then builds animation player
     milliseconds = (+count * 60) * 1000;
-
     buildAnimation(milliseconds);
 
     countDown = setInterval(counter, 1000);
@@ -166,22 +133,22 @@ function timerCtrl(evt){
 
 function counter(){
     console.log('incounter')
-    //milliseconds need to count down instead of secs
-    //call in timeFormat(t) == t should = count, which will be in minutes. timeFormat will convert t to secs.
-
     var t = timeFormat(milliseconds);
     milliseconds -= 1000;
-    console.log(t);
 
-    //what displays in circle during timer. Should be min:sec
-    console.dir(counterElm);
-    counterElm.textContent = t.minutes+':'+t.seconds;
+    if(t.minutes === 0){
+        counterElm.textContent = t.seconds;
+    }
+    else counterElm.textContent = t.minutes+':'+t.seconds;
 
     if(t.milliseconds === 0){
         clearInterval(countDown);
-        if(type === 'work'){
+        console.log('after clearInterval');
+        console.log(type);
+        if(type === 'break'){
+            console.log('in counter 2nd if');
             timerCtrl();
-            type = 'break'
+            type = 'work';
             }
     }
 }
@@ -210,5 +177,5 @@ function adjustVal(evt){
     //bind the circle time display to the count variable of timer:
     workCount  = workTime.valueAsNumber;
     breakCount = breakTime.valueAsNumber;
-    // counterElm.textContent = String(workCount);
+    counterElm.textContent = String(workCount);
 }
