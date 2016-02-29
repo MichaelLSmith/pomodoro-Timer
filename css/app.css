@@ -56,11 +56,11 @@ i {
 
 #fill {
   stroke: none;
-  fill: #8C9116; }
+  fill: black; }
 
 #circleBase {
-  stroke: #901619;
-  fill: #8C9116; }
+  stroke: #EAE7E7;
+  fill: black; }
 
 #count {
   fill: white;

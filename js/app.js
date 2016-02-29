@@ -34,6 +34,7 @@ function buttonsOn() {
     breakButton.onclick = timerCtrl;
     workTime.disabled = false;
     breakTime.disabled = false;
+    workTime.onchange = adjustVal;
     
     for(var i = 0; i < 4; i++){
     durButtons[i]
@@ -177,5 +178,7 @@ function adjustVal(evt){
     //bind the circle time display to the count variable of timer:
     workCount  = workTime.valueAsNumber;
     breakCount = breakTime.valueAsNumber;
-    counterElm.textContent = String(workCount);
+
+    console.dir(workTime.value);
+    counterElm.textContent = workTime.value;
 }
