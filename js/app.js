@@ -11,8 +11,8 @@ var counterElm = document.getElementById('count'),
 
 //timer duration variables--> bound to adjustable work/break durations in adjustVal().
 var count,
-    workCount  = 1,
-    breakCount = 1;
+    workCount  = 25,
+    breakCount = 5;
 
 //timer/animation variables
 var player,
@@ -35,6 +35,7 @@ function buttonsOn() {
     workTime.disabled = false;
     breakTime.disabled = false;
     workTime.onchange = adjustVal;
+    breakTime.onchange = adjustVal;
     
     for(var i = 0; i < 4; i++){
     durButtons[i]
@@ -55,17 +56,6 @@ function buttonsOff(){
 }
 
 buttonsOn();
-
-//Todos:
-
-//entering value directly into input field changes val in circle
-//we need a second animation --> could be a second circle or just the first circle with another fill colour.
-//change event to background of plus/minus so it doesn't select when you double click quickly.
-
-//after animation finishes, make radius set to fill undercircle. Onfinish method? Or keep empty with new number.
-//when timer stops, reset it to equal work time.
-//add google's wave on buttons
-//add reset timer - could leave break time active so you change break time while work time running, but this will be complicated.
 
 function timeFormat(t) {
     //based on: http://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
@@ -114,17 +104,12 @@ function timerCtrl(evt){
     //calculates duration based on work or break count and then builds animation player
     milliseconds = (+count * 60) * 1000;
     buildAnimation(milliseconds);
-
     countDown = setInterval(counter, 1000);
     player.play();
 
     player.onfinish = function() {
-        console.log('onfinish()');
-
-        player.cancel();
-            
+        player.cancel();       
         if(type === 'work') {
-            console.log('buttonsOn');
             buttonsOn();
         }
     }
@@ -133,7 +118,6 @@ function timerCtrl(evt){
 }
 
 function counter(){
-    console.log('incounter')
     var t = timeFormat(milliseconds);
     milliseconds -= 1000;
 
@@ -144,10 +128,7 @@ function counter(){
 
     if(t.milliseconds === 0){
         clearInterval(countDown);
-        console.log('after clearInterval');
-        console.log(type);
         if(type === 'break'){
-            console.log('in counter 2nd if');
             timerCtrl();
             type = 'work';
             }
@@ -156,6 +137,8 @@ function counter(){
 
 function adjustVal(evt){
     //try using the jsGame obj literal structure for all this:
+    // if(workTime.valueAsNumber > 24){ workTime.valueAsNumber = 25; }
+    // if(breakTime.valueAsNumber > 24){ breakTime.valueAsNumber = 25; }
 
     if(evt.target.id === 'workAdd'){
         workTime.stepUp(1);
@@ -178,7 +161,5 @@ function adjustVal(evt){
     //bind the circle time display to the count variable of timer:
     workCount  = workTime.valueAsNumber;
     breakCount = breakTime.valueAsNumber;
-
-    console.dir(workTime.value);
     counterElm.textContent = workTime.value;
 }
